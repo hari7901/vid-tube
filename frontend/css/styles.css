@@ -1,0 +1,49 @@
+/* Custom styles not covered by Tailwind */
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #6d28d9;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: white;
+    max-width: 350px;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: slide-in 0.3s ease-out;
+}
+
+.notification.success {
+    background-color: #10b981;
+}
+
+.notification.error {
+    background-color: #ef4444;
+}
+
+.notification.info {
+    background-color: #3b82f6;
+}
+
+.notification-close {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+@keyframes slide-in {
+    0% { transform: translateX(100%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}

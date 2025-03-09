@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>VideoHub - Explore</title>
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Configure Tailwind -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                50: "#f5f3ff",
+                100: "#ede9fe",
+                200: "#ddd6fe",
+                300: "#c4b5fd",
+                400: "#a78bfa",
+                500: "#8b5cf6",
+                600: "#7c3aed",
+                700: "#6d28d9",
+                800: "#5b21b6",
+                900: "#4c1d95",
+                950: "#2e1065",
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind-compiled CSS (if used) -->
+    <link rel="stylesheet" href="../css/output.css" />
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body class="bg-gray-50 font-['Poppins']">
+    <!-- Navbar -->
+    <nav class="bg-white border-b border-gray-200 fixed w-full z-30 shadow-sm">
+      <div class="px-3 py-3 lg:px-5 lg:pl-3">
+        <div class="flex items-center justify-between">
+          <!-- Left: Logo -->
+          <div class="flex items-center justify-start">
+            <a
+              href="./explore.html"
+              class="text-xl font-semibold flex items-center"
+            >
+              <i class="fas fa-play-circle text-primary-700 text-2xl mr-2"></i>
+              <span class="self-center whitespace-nowrap">VideoHub</span>
+            </a>
+          </div>
+
+          <!-- Right: Nav + Logout -->
+          <div class="flex items-center space-x-2">
+            <!-- Link to Dashboard -->
+            <a
+              href="../index.html"
+              class="flex text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2"
+            >
+              <i class="fas fa-tv mr-2"></i>
+              Dashboard
+            </a>
+
+            <!-- Logout -->
+            <button
+              id="explore-logout-button"
+              class="flex text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2"
+            >
+              <i class="fas fa-sign-out-alt mr-2"></i>
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <main class="pt-16 p-6">
+      <h1 class="text-2xl font-bold mb-4 text-gray-800 flex justify-center">Explore Videos</h1>
+
+      <!-- Video Grid -->
+      <div
+        id="explore-video-grid"
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+      >
+        <!-- Populated by explore.js -->
+      </div>
+
+      <!-- Pagination Controls -->
+      <div class="flex items-center justify-between mt-6" id="explore-pagination">
+        <button
+          id="explore-prev-page"
+          class="bg-gray-200 text-gray-600 px-4 py-2 rounded hover:bg-gray-300 disabled:opacity-50"
+          disabled
+        >
+          Prev
+        </button>
+        <span class="text-sm text-gray-600" id="explore-page-info">Page 1</span>
+        <button
+          id="explore-next-page"
+          class="bg-gray-200 text-gray-600 px-4 py-2 rounded hover:bg-gray-300 disabled:opacity-50"
+          disabled
+        >
+          Next
+        </button>
+      </div>
+    </main>
+
+    <!-- Logout Confirmation Modal -->
+    <div
+      id="logoutModal"
+      class="fixed inset-0 z-50 hidden bg-black/50 justify-center items-center"
+    >
+      <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm mx-auto relative">
+        <!-- Close Button -->
+        <button
+          id="logoutModalClose"
+          class="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">
+          Confirm Logout
+        </h2>
+        <p class="text-gray-600 mb-4">
+          Are you sure you want to log out?
+        </p>
+        <div class="flex justify-end space-x-2">
+          <button
+            id="cancelLogoutBtn"
+            class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
+          >
+            Cancel
+          </button>
+          <button
+            id="confirmLogoutBtn"
+            class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+          >
+            Yes, Logout
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification (custom) -->
+    <div
+      id="customNotification"
+      class="fixed top-5 right-5 bg-white border border-gray-300 shadow-lg rounded p-4 hidden z-50 max-w-sm"
+    >
+      <div class="flex items-center justify-between mb-2">
+        <h3 id="notificationTitle" class="font-semibold"></h3>
+        <button
+          id="notificationClose"
+          class="text-gray-400 hover:text-gray-600"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <p id="notificationMessage" class="text-sm text-gray-700"></p>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div
+      id="loading-overlay"
+      class="fixed inset-0 bg-white/80 flex justify-center items-center z-50 hidden"
+    >
+      <div class="loader"></div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/explore.js"></script>
+  </body>
+</html>

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>VideoHub - Dashboard</title>
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Configure Tailwind -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                50: "#f5f3ff",
+                100: "#ede9fe",
+                200: "#ddd6fe",
+                300: "#c4b5fd",
+                400: "#a78bfa",
+                500: "#8b5cf6",
+                600: "#7c3aed",
+                700: "#6d28d9",
+                800: "#5b21b6",
+                900: "#4c1d95",
+                950: "#2e1065",
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind-compiled CSS (if used) -->
+    <link rel="stylesheet" href="./css/output.css" />
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body class="bg-gray-50 font-['Poppins']">
+    <!-- Navbar -->
+    <nav class="bg-white border-b border-gray-200 fixed w-full z-30 shadow-sm">
+      <div class="px-3 py-3 lg:px-5 lg:pl-3">
+        <div class="flex items-center justify-between">
+          <!-- Left: Logo + Mobile Toggle -->
+          <div class="flex items-center justify-start">
+            <!-- Mobile menu button -->
+            <button
+              id="toggleSidebarMobile"
+              aria-expanded="true"
+              aria-controls="sidebar"
+              class="lg:hidden mr-2 text-gray-600 hover:text-gray-900 cursor-pointer p-2 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded"
+            >
+              <svg
+                class="w-6 h-6"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </button>
+
+            <!-- Logo -->
+            <a
+              href="#"
+              class="text-xl font-semibold flex items-center lg:ml-2.5"
+            >
+              <i class="fas fa-play-circle text-primary-700 text-2xl mr-2"></i>
+              <span class="self-center whitespace-nowrap">VideoHub</span>
+            </a>
+          </div>
+
+          <!-- Right: Search + Upload + Logout -->
+          <div class="flex items-center">
+            <!-- Optional search -->
+            <form id="dashboard-search-form" class="hidden md:block mr-4">
+              <div class="flex">
+                <div class="relative w-64 md:w-96">
+                  <div
+                    class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+                  >
+                    <svg
+                      class="w-4 h-4 text-gray-500"
+                      aria-hidden="true"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                        clip-rule="evenodd"
+                      ></path>
+                    </svg>
+                  </div>
+                  <input
+                    type="text"
+                    id="search-navbar"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2"
+                    placeholder="Search videos..."
+                  />
+                </div>
+                <button
+                  type="submit"
+                  class="ml-2 inline-flex items-center py-2 px-3 text-sm font-medium text-white bg-primary-700 rounded-lg border border-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300"
+                >
+                  <svg
+                    class="w-4 h-4 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  Search
+                </button>
+              </div>
+            </form>
+
+            <!-- Upload Button -->
+            <button
+              type="button"
+              class="flex mx-2 text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 text-center"
+              id="upload-video-button"
+            >
+              <i class="fas fa-upload mr-2"></i>
+              Upload
+            </button>
+
+            <!-- Logout Button (visible) -->
+            <button
+              type="button"
+              class="flex mx-2 text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center"
+              id="logout-button"
+            >
+              <i class="fas fa-sign-out-alt mr-2"></i>
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Sidebar + Content -->
+    <div class="flex pt-16 overflow-hidden bg-gray-50">
+      <!-- Sidebar -->
+      <aside
+        id="sidebar"
+        class="fixed top-0 left-0 z-20 flex flex-col flex-shrink-0 hidden w-64 h-full pt-16 font-normal duration-75 lg:flex transition-width"
+        aria-label="Sidebar"
+      >
+        <div
+          class="relative flex flex-col flex-1 min-h-0 pt-0 bg-white border-r border-gray-200"
+        >
+          <div class="flex flex-col flex-1 pt-5 pb-4 overflow-y-auto">
+            <div class="flex-1 px-3 space-y-1 bg-white divide-y divide-gray-200">
+              <ul class="pb-2 space-y-2">
+                <!-- Dashboard Link -->
+                <li>
+                  <a
+                    href="#"
+                    class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group"
+                  >
+                    <svg
+                      class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"
+                      ></path>
+                      <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
+                    </svg>
+                    <span class="ml-3">Dashboard</span>
+                  </a>
+                </li>
+
+                <!-- Explore Link -->
+                <li>
+                  <a
+                    href="./pages/explore.html"
+                    class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group"
+                    id="nav-explore"
+                  >
+                    <svg
+                      class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                      ></path>
+                    </svg>
+                    <span class="ml-3">Explore</span>
+                  </a>
+                </li>
+
+                <!-- Watch Link (Example) -->
+                <li>
+                  <a
+                    href="./pages/watch.html"
+                    class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group"
+                  >
+                    <svg
+                      class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M23.498 6.186a3 3 0 00-1.961-2.808C19.204 3 12 3 12 3S4.796 3 2.463 3.378A3 3 0 00.5 6.186C0 8.48 0 12.002 0 12.002s0 3.524.5 5.816a3 3 0 001.962 2.808c2.333.379 9.537.379 9.537.379s7.204 0 9.537-.378a3 3 0 001.962-2.808C24 15.526 24 12.003 24 12.003s0-3.524-.502-5.817zM9.545 15.568V8.434l6.504 3.57-6.504 3.564z"></path>
+                    </svg>
+                    <span class="ml-3">Watch</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content (Dashboard) -->
+      <div class="lg:pl-64 w-full">
+        <main class="p-6">
+          <!-- Channel Stats -->
+          <section id="channel-stats" class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+              Your Channel Stats
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <!-- Card: Total Subscribers -->
+              <div
+                class="bg-white rounded-lg shadow-sm p-4 flex flex-col justify-between"
+              >
+                <div>
+                  <span class="text-gray-600">Total Subscribers</span>
+                  <h3
+                    id="total-subscribers"
+                    class="text-xl font-semibold text-primary-700 mt-1"
+                  >
+                    0
+                  </h3>
+                </div>
+                <div>
+                  <i class="fas fa-user-friends text-4xl text-primary-400 mt-2"></i>
+                </div>
+              </div>
+
+              <!-- Card: Total Videos -->
+              <div
+                class="bg-white rounded-lg shadow-sm p-4 flex flex-col justify-between"
+              >
+                <div>
+                  <span class="text-gray-600">Total Videos</span>
+                  <h3
+                    id="total-videos"
+                    class="text-xl font-semibold text-primary-700 mt-1"
+                  >
+                    0
+                  </h3>
+                </div>
+                <div>
+                  <i class="fas fa-video text-4xl text-primary-400 mt-2"></i>
+                </div>
+              </div>
+
+              <!-- Card: Total Views -->
+              <div
+                class="bg-white rounded-lg shadow-sm p-4 flex flex-col justify-between"
+              >
+                <div>
+                  <span class="text-gray-600">Total Views</span>
+                  <h3
+                    id="total-views"
+                    class="text-xl font-semibold text-primary-700 mt-1"
+                  >
+                    0
+                  </h3>
+                </div>
+                <div>
+                  <i class="fas fa-eye text-4xl text-primary-400 mt-2"></i>
+                </div>
+              </div>
+
+              <!-- Card: Total Likes -->
+              <div
+                class="bg-white rounded-lg shadow-sm p-4 flex flex-col justify-between"
+              >
+                <div>
+                  <span class="text-gray-600">Total Likes</span>
+                  <h3
+                    id="total-likes"
+                    class="text-xl font-semibold text-primary-700 mt-1"
+                  >
+                    0
+                  </h3>
+                </div>
+                <div>
+                  <i class="fas fa-thumbs-up text-4xl text-primary-400 mt-2"></i>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Video Distribution by Month -->
+          <section id="videos-distribution" class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+              Video Distribution (Last 6 Months)
+            </h2>
+            <div class="bg-white rounded-lg shadow-sm p-4">
+              <ul id="month-distribution-list" class="space-y-2 text-gray-600">
+                <!-- Dynamically loaded from JS -->
+              </ul>
+            </div>
+          </section>
+
+          <!-- Top Videos -->
+          <section id="top-videos" class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Top 5 Videos</h2>
+            <div
+              class="bg-white rounded-lg shadow-sm p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4"
+              id="top-videos-list"
+            >
+              <!-- Dynamically loaded from JS -->
+            </div>
+          </section>
+
+          <!-- My Videos Table -->
+          <section id="channel-videos" class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">My Videos</h2>
+            <div class="bg-white rounded-lg shadow-sm p-4">
+              <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200 text-left">
+                  <thead class="bg-gray-50">
+                    <tr>
+                      <th scope="col" class="px-4 py-2 text-gray-700">
+                        Title
+                      </th>
+                      <th scope="col" class="px-4 py-2 text-gray-700">
+                        Views
+                      </th>
+                      <th scope="col" class="px-4 py-2 text-gray-700">
+                        Published
+                      </th>
+                      <th scope="col" class="px-4 py-2 text-gray-700">
+                        Created At
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    id="channel-videos-table"
+                    class="divide-y divide-gray-200 text-gray-600"
+                  >
+                    <!-- Populated by JS -->
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Pagination for My Videos -->
+              <div
+                class="flex items-center justify-between mt-4"
+                id="videos-pagination"
+              >
+                <button
+                  id="prev-page"
+                  class="bg-gray-200 text-gray-600 px-4 py-2 rounded hover:bg-gray-300 disabled:opacity-50"
+                  disabled
+                >
+                  Prev
+                </button>
+                <span class="text-sm text-gray-600" id="page-info"
+                  >Page 1</span
+                >
+                <button
+                  id="next-page"
+                  class="bg-gray-200 text-gray-600 px-4 py-2 rounded hover:bg-gray-300 disabled:opacity-50"
+                  disabled
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <!-- Upload Video Modal (hidden initially) -->
+    <div
+      id="uploadVideoModal"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 hidden"
+    >
+      <div class="bg-white w-full max-w-lg rounded-lg shadow-lg p-6 relative">
+        <!-- Close Button -->
+        <button
+          id="closeUploadModalBtn"
+          class="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+
+        <!-- Modal Title -->
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">
+          Upload a New Video
+        </h2>
+
+        <!-- Upload Form -->
+        <form id="uploadVideoForm" class="space-y-4">
+          <!-- Title -->
+          <div>
+            <label
+              for="videoTitle"
+              class="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Video Title
+            </label>
+            <input
+              type="text"
+              id="videoTitle"
+              name="title"
+              required
+              class="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-primary-500"
+              placeholder="Enter a video title"
+            />
+          </div>
+
+          <!-- Description -->
+          <div>
+            <label
+              for="videoDescription"
+              class="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Description
+            </label>
+            <textarea
+              id="videoDescription"
+              name="description"
+              required
+              rows="3"
+              class="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-primary-500"
+              placeholder="Tell viewers about your video..."
+            ></textarea>
+          </div>
+
+          <!-- Thumbnail -->
+          <div>
+            <label
+              for="thumbnailFile"
+              class="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Thumbnail
+            </label>
+            <input
+              type="file"
+              id="thumbnailFile"
+              name="thumbnail"
+              accept="image/*"
+              required
+              class="block w-full text-sm text-gray-500
+                     file:mr-4 file:py-2 file:px-4
+                     file:rounded file:border-0
+                     file:text-sm file:font-semibold
+                     file:bg-primary-50 file:text-primary-700
+                     hover:file:bg-primary-100"
+            />
+          </div>
+
+          <!-- Video File -->
+          <div>
+            <label
+              for="videoFile"
+              class="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Video File
+            </label>
+            <input
+              type="file"
+              id="videoFile"
+              name="videoFile"
+              accept="video/*"
+              required
+              class="block w-full text-sm text-gray-500
+                     file:mr-4 file:py-2 file:px-4
+                     file:rounded file:border-0
+                     file:text-sm file:font-semibold
+                     file:bg-primary-50 file:text-primary-700
+                     hover:file:bg-primary-100"
+            />
+          </div>
+
+          <!-- Publish Toggle -->
+          <div class="flex items-center gap-2 mt-2">
+            <input
+              type="checkbox"
+              id="publishToggle"
+              name="isPublished"
+              class="h-4 w-4 text-primary-600 border-gray-300 rounded"
+              checked
+            />
+            <label for="publishToggle" class="text-sm text-gray-700">
+              Publish immediately?
+            </label>
+          </div>
+
+          <!-- Submit -->
+          <button
+            type="submit"
+            class="bg-primary-700 text-white px-4 py-2 rounded hover:bg-primary-800 transition font-medium w-full"
+          >
+            Upload Video
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Logout Confirmation Modal -->
+    <div
+      id="logoutModal"
+      class="fixed inset-0 z-50 hidden bg-black/50 justify-center items-center"
+    >
+      <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm mx-auto relative">
+        <!-- Close Button -->
+        <button
+          id="logoutModalClose"
+          class="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">
+          Confirm Logout
+        </h2>
+        <p class="text-gray-600 mb-4">
+          Are you sure you want to log out?
+        </p>
+        <div class="flex justify-end space-x-2">
+          <button
+            id="cancelLogoutBtn"
+            class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
+          >
+            Cancel
+          </button>
+          <button
+            id="confirmLogoutBtn"
+            class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+          >
+            Yes, Logout
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div
+      id="loading-overlay"
+      class="fixed inset-0 bg-white/80 flex justify-center items-center z-50 hidden"
+    >
+      <div class="loader"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./js/api.js"></script>
+    <script src="./js/dashboard.js"></script>
+  </body>
+</html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VideoHub - Authentication</title>
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Configure Tailwind -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                50: "#f5f3ff",
+                100: "#ede9fe",
+                200: "#ddd6fe",
+                300: "#c4b5fd",
+                400: "#a78bfa",
+                500: "#8b5cf6",
+                600: "#7c3aed",
+                700: "#6d28d9",
+                800: "#5b21b6",
+                900: "#4c1d95",
+                950: "#2e1065",
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body class="bg-gray-50 font-['Poppins']">
+    <div class="flex min-h-screen">
+      <!-- Form Section -->
+      <div class="w-full md:w-1/2 flex justify-center items-center p-6">
+        <div class="w-full max-w-md">
+          <!-- Login Form -->
+          <form action="#" class="login-form" id="login-form">
+            <div class="flex justify-center items-center mb-3 text-primary-700">
+              <i class="fas fa-play-circle text-3xl mr-3"></i>
+              <h2 class="text-2xl font-semibold">VideoHub</h2>
+            </div>
+
+            <h3 class="text-2xl font-semibold text-gray-800 mb-1 flex justify-center">
+              Welcome back
+            </h3>
+            <p class="text-gray-500 mb-6 flex justify-center">Please enter your details</p>
+
+            <div class="space-y-4">
+              <div>
+                <label
+                  for="login-email"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Email</label
+                >
+                <div class="relative">
+                  <div
+                    class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                  >
+                    <i class="fas fa-envelope text-gray-400"></i>
+                  </div>
+                  <input
+                    type="email"
+                    id="login-email"
+                    placeholder="Enter your email"
+                    required
+                    class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label
+                  for="login-password"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Password</label
+                >
+                <div class="relative">
+                  <div
+                    class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                  >
+                    <i class="fas fa-lock text-gray-400"></i>
+                  </div>
+                  <input
+                    type="password"
+                    id="login-password"
+                    placeholder="Enter your password"
+                    required
+                    class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition"
+                  />
+                  <div
+                    class="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  >
+                    <i
+                      class="fas fa-eye-slash text-gray-400 cursor-pointer toggle-password"
+                    ></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between mt-4 mb-6">
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="remember-me"
+                  class="h-4 w-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
+                />
+                <label
+                  for="remember-me"
+                  class="ml-2 block text-sm text-gray-700"
+                  >Remember me</label
+                >
+              </div>
+              <a
+                href="#"
+                class="text-sm text-primary-700 hover:text-primary-800"
+                >Forgot password?</a
+              >
+            </div>
+
+            <button
+              type="submit"
+              class="w-full bg-primary-700 text-white py-2 px-4 rounded-lg hover:bg-primary-800 transition font-medium"
+            >
+              Sign in
+            </button>
+
+            <p class="text-center mt-6 text-sm text-gray-600">
+              Don't have an account?
+              <a
+                href="#"
+                id="switch-to-register"
+                class="text-primary-700 hover:text-primary-800 font-medium"
+                >Sign up</a
+              >
+            </p>
+          </form>
+
+          <!-- Register Form (Hidden by default) -->
+          <form action="#" class="register-form hidden" id="register-form">
+            <div class="flex justify-center items-center mb-3 text-primary-700">
+              <i class="fas fa-play-circle text-3xl mr-3"></i>
+              <h2 class="text-2xl font-semibold">VideoHub</h2>
+            </div>
+
+            <h3 class="text-2xl font-semibold text-gray-800 mb-1 flex justify-center">
+              Create an account
+            </h3>
+            <p class="text-gray-500 mb-6 flex justify-center">Join our community today</p>
+
+            <div class="space-y-4">
+              <div>
+                <label
+                  for="fullname"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Full Name</label
+                >
+                <div class="relative">
+                  <div
+                    class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                  >
+                    <i class="fas fa-user text-gray-400"></i>
+                  </div>
+                  <input
+                    type="text"
+                    id="fullname"
+                    placeholder="Enter your full name"
+                    required
+                    class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label
+                  for="username"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Username</label
+                >
+                <div class="relative">
+                  <div
+                    class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                  >
+                    <i class="fas fa-at text-gray-400"></i>
+                  </div>
+                  <input
+                    type="text"
+                    id="username"
+                    placeholder="Choose a username"
+                    required
+                    class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label
+                  for="email"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Email</label
+                >
+                <div class="relative">
+                  <div
+                    class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                  >
+                    <i class="fas fa-envelope text-gray-400"></i>
+                  </div>
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+                    class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label
+                  for="password"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Password</label
+                >
+                <div class="relative">
+                  <div
+                    class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                  >
+                    <i class="fas fa-lock text-gray-400"></i>
+                  </div>
+                  <input
+                    type="password"
+                    id="password"
+                    placeholder="Create a password"
+                    required
+                    class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition"
+                  />
+                  <div
+                    class="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  >
+                    <i
+                      class="fas fa-eye-slash text-gray-400 cursor-pointer toggle-password"
+                    ></i>
+                  </div>
+                </div>
+                <div class="mt-2">
+                  <div class="flex gap-1">
+                    <div
+                      class="strength-segment h-1 w-1/4 bg-gray-200 rounded"
+                    ></div>
+                    <div
+                      class="strength-segment h-1 w-1/4 bg-gray-200 rounded"
+                    ></div>
+                    <div
+                      class="strength-segment h-1 w-1/4 bg-gray-200 rounded"
+                    ></div>
+                    <div
+                      class="strength-segment h-1 w-1/4 bg-gray-200 rounded"
+                    ></div>
+                  </div>
+                  <span class="text-xs text-gray-500 strength-text"
+                    >Password strength</span
+                  >
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label
+                    for="avatar"
+                    class="block text-sm font-medium text-gray-700 mb-1"
+                    >Profile Picture</label
+                  >
+                  <div
+                    class="relative border border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-primary-500 transition"
+                  >
+                    <input
+                      type="file"
+                      id="avatar"
+                      accept="image/*"
+                      required
+                      class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    />
+                    <div class="file-preview flex flex-col items-center">
+                      <i
+                        class="fas fa-user-circle text-gray-400 text-2xl mb-2"
+                      ></i>
+                      <span class="text-xs text-gray-500">Upload avatar</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <label
+                    for="cover-image"
+                    class="block text-sm font-medium text-gray-700 mb-1"
+                    >Cover Image</label
+                  >
+                  <div
+                    class="relative border border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-primary-500 transition"
+                  >
+                    <input
+                      type="file"
+                      id="cover-image"
+                      accept="image/*"
+                      class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    />
+                    <div class="file-preview flex flex-col items-center">
+                      <i class="fas fa-image text-gray-400 text-2xl mb-2"></i>
+                      <span class="text-xs text-gray-500">Upload cover</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-start mt-6">
+              <input
+                type="checkbox"
+                id="agree-terms"
+                required
+                class="mt-1 h-4 w-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
+              />
+              <label for="agree-terms" class="ml-2 block text-sm text-gray-700">
+                I agree to the
+                <a href="#" class="text-primary-700 hover:text-primary-800"
+                  >Terms of Service</a
+                >
+                and
+                <a href="#" class="text-primary-700 hover:text-primary-800"
+                  >Privacy Policy</a
+                >
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full bg-primary-700 text-white py-2 px-4 rounded-lg hover:bg-primary-800 transition font-medium mt-6"
+            >
+              Create Account
+            </button>
+
+            <p class="text-center mt-6 text-sm text-gray-600">
+              Already have an account?
+              <a
+                href="#"
+                id="switch-to-login"
+                class="text-primary-700 hover:text-primary-800 font-medium"
+                >Sign in</a
+              >
+            </p>
+          </form>
+        </div>
+      </div>
+
+      <!-- Side Image / Content -->
+      <div
+        class="hidden md:block md:w-1/2 bg-cover bg-center"
+        style="
+          background-image: url('../assets/photo-1516542076529-1ea3854896f2.avif');
+        "
+      >
+        <div
+          class="w-full h-full bg-gradient-to-r from-primary-700/80 to-blue-500/80 p-12 flex items-center"
+        >
+          <div class="max-w-lg">
+            <h2 class="text-4xl font-bold text-white mb-4">
+              Share your creativity with the world
+            </h2>
+            <p class="text-white text-lg mb-8">
+              Join VideoHub and connect with creators and viewers from around
+              the globe.
+            </p>
+
+            <div class="space-y-6">
+              <div class="flex items-start">
+                <div class="flex-shrink-0 mt-1">
+                  <i class="fas fa-film text-white text-xl"></i>
+                </div>
+                <div class="ml-4">
+                  <h4 class="text-white font-semibold">Upload Videos</h4>
+                  <p class="text-white/90 text-sm">
+                    Share your content in high quality
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start">
+                <div class="flex-shrink-0 mt-1">
+                  <i class="fas fa-users text-white text-xl"></i>
+                </div>
+                <div class="ml-4">
+                  <h4 class="text-white font-semibold">Build Community</h4>
+                  <p class="text-white/90 text-sm">
+                    Grow your audience and subscribers
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start">
+                <div class="flex-shrink-0 mt-1">
+                  <i class="fas fa-chart-line text-white text-xl"></i>
+                </div>
+                <div class="ml-4">
+                  <h4 class="text-white font-semibold">Track Performance</h4>
+                  <p class="text-white/90 text-sm">
+                    Analyze your content's reach
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div
+      id="loading-overlay"
+      class="fixed inset-0 bg-white/80 flex justify-center items-center z-50 hidden"
+    >
+      <div class="loader"></div>
+    </div>
+
+    <!-- Load scripts -->
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+  </body>
+</html>
