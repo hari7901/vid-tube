@@ -107,17 +107,17 @@ Authentication
 
 # 💻 Project Structure
 
-videohub/
-├── backend/             # API server code
-│   ├── controllers/     # Route controllers
-│   ├── middlewares/     # Express middlewares
-│   ├── models/          # Mongoose models
-│   ├── routes/          # API routes
-│   └── utils/           # Utility functions
-├── frontend/            # Frontend code
-│   ├── assets/          # Static assets
-│   ├── css/             # Stylesheets
-│   ├── js/              # JavaScript files
-│   └── pages/           # HTML pages
-├── .env                 # Environment variables
-└── README.md            # Project documentation
+# videohub/
+# ├── backend/             # API server code
+1. ├── controllers/     # Route controllers
+2. ├── middlewares/     # Express middlewares
+3. ├── models/          # Mongoose models
+4. ├── routes/          # API routes
+5. └── utils/           # Utility functions
+# ├── frontend/            # Frontend code
+1. ├── assets/          # Static assets
+2. ├── css/             # Stylesheets
+3. ├── js/              # JavaScript files
+4. └── pages/           # HTML pages
+5. ├── .env                 # Environment variables
+6. └── README.md            # Project documentation
