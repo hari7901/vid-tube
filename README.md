@@ -65,45 +65,45 @@ VideoHub is a feature-rich video sharing platform that allows users to upload, s
 The platform provides a comprehensive set of RESTful API endpoints:
 Authentication
 
-POST /api/v1/users/register - Register a new user
-POST /api/v1/users/login - Authenticate a user
-POST /api/v1/users/logout - Log out a user
-POST /api/v1/users/refresh-token - Generate new access token
+1. POST /api/v1/users/register - Register a new user
+2. POST /api/v1/users/login - Authenticate a user
+3. POST /api/v1/users/logout - Log out a user
+4. POST /api/v1/users/refresh-token - Generate new access token
 
 
 # Videos
 
-GET /api/v1/videos - Get all videos
-POST /api/v1/videos - Upload a new video
-GET /api/v1/videos/:videoId - Get video by ID
-PATCH /api/v1/videos/:videoId - Update video
-DELETE /api/v1/videos/:videoId - Delete video
-PATCH /api/v1/videos/toggle/:videoId - Toggle publish status
+1. GET /api/v1/videos - Get all videos
+2. POST /api/v1/videos - Upload a new video
+3. GET /api/v1/videos/:videoId - Get video by ID
+4. PATCH /api/v1/videos/:videoId - Update video
+5. DELETE /api/v1/videos/:videoId - Delete video
+6. PATCH /api/v1/videos/toggle/:videoId - Toggle publish status
 
 # Users & Channels
 
-GET /api/v1/users/current-user - Get current user profile
-GET /api/v1/users/c/:username - Get channel profile
-GET /api/v1/users/history - Get watch history
-PATCH /api/v1/users/update-account - Update user profile
+1. GET /api/v1/users/current-user - Get current user profile
+2. GET /api/v1/users/c/:username - Get channel profile
+3. GET /api/v1/users/history - Get watch history
+4. PATCH /api/v1/users/update-account - Update user profile
 
 # Comments
 
-GET /api/v1/comments/v/:videoId - Get comments for a video
-POST /api/v1/comments/v/:videoId - Add comment to a video
-PATCH /api/v1/comments/:commentId - Update a comment
-DELETE /api/v1/comments/:commentId - Delete a comment
+1. GET /api/v1/comments/v/:videoId - Get comments for a video
+2. POST /api/v1/comments/v/:videoId - Add comment to a video
+3. PATCH /api/v1/comments/:commentId - Update a comment
+4. DELETE /api/v1/comments/:commentId - Delete a comment
 
 # Subscriptions
 
-POST /api/v1/subscriptions/c/:channelId - Subscribe/unsubscribe to channel
-GET /api/v1/subscriptions/c/:channelId/subscribers - Get channel subscribers
-GET /api/v1/subscriptions/me/channels - Get subscribed channels
+1. POST /api/v1/subscriptions/c/:channelId - Subscribe/unsubscribe to channel
+2. GET /api/v1/subscriptions/c/:channelId/subscribers - Get channel subscribers
+3. GET /api/v1/subscriptions/me/channels - Get subscribed channels
 
 # Dashboard
 
-GET /api/v1/dashboard/stats - Get channel statistics
-GET /api/v1/dashboard/videos - Get channel videos
+1. GET /api/v1/dashboard/stats - Get channel statistics
+2. GET /api/v1/dashboard/videos - Get channel videos
 
 # 💻 Project Structure
 
