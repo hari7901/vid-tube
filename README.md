@@ -1,4 +1,4 @@
-VideoHub - Video Sharing Platform
+# VideoHub - Video Sharing Platform
 
 # 📋 Overview
 VideoHub is a feature-rich video sharing platform that allows users to upload, share, and engage with video content. Built with modern web technologies, VideoHub offers a seamless user experience similar to popular platforms like YouTube.
